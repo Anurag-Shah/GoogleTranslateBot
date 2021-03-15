@@ -3,7 +3,7 @@
 Discord Bot that can translate messages.
 
 # Commands
-Format: `[tr s=,<source_langague> d=<destination_langauge>]` <text>
+Format: `[tr s=<source_langague> d=<destination_langauge>]` <text>
 
 Arguments for both source and destination languages are optional. If the source language is not provided, the bot will attempt to detect the language. If the destination langauge is not provide, the bot will default to `DEFAULT_LANGUAGE` (which is set to en, for English).
 
