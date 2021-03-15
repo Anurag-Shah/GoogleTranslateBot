@@ -3,7 +3,7 @@ import discord
 import re
 
 # Globals
-LOGGING = False				# Set to true if you want the bot to log to the console
+LOGGING = True				# Set to true if you want the bot to log to the console
 DEFAULT_LANGUAGE = "en"		# Change to edit your default language
 
 # Loads token from token.txt
@@ -71,6 +71,8 @@ async def on_message(message):
 		except ValueError:
 			src = tr.detect(text)
 			src = src.lang
+			if type(src) == list:
+				src = src[0]
 
 		# Check if destination language given as argument, if not set to DEFAULT_LANGUAGE
 		try:
