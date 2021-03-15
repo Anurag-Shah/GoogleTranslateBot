@@ -29,8 +29,8 @@ async def on_message(message):
 	elif message.content == "[tr help]":
 		# Help message
 		HELP_MESSAGE =  "Syntax: [tr]\n"
-		HELP_MESSAGE += "Arguments (optional): src, dst\n\n"
-		HELP_MESSAGE += "Example: [tr src=en dst=fr] I am hungry.\n"
+		HELP_MESSAGE += "Arguments (optional): s (source language), d (destination language)\n\n"
+		HELP_MESSAGE += "Example: [tr s=en d=fr] I am hungry.\n"
 		HELP_MESSAGE += "Another Example: [tr] Tu es mon ami.\n\n"
 		HELP_MESSAGE += "[tr languages] for a list of languages and codes"
 		await message.reply(HELP_MESSAGE, mention_author=True)
