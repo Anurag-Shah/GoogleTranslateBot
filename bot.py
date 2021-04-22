@@ -3,7 +3,7 @@ import discord
 import re
 
 # Globals
-LOGGING = True				# Set to true if you want the bot to log to the console
+LOGGING = False				# Set to true if you want the bot to log to the console
 DEFAULT_LANGUAGE = "en"		# Change to edit your default language
 
 # Loads token from token.txt
@@ -28,6 +28,7 @@ async def on_message(message):
 			return
 
 		elif message.content == "[tr help]":
+			print("Reached")
 			# Help message
 			HELP_MESSAGE =  "Syntax: [tr]\n"
 			HELP_MESSAGE += "Arguments (optional): s (source language), d (destination language)\n\n"
@@ -74,6 +75,7 @@ async def on_message(message):
 				src = src.lang
 				if type(src) == list:
 					src = src[0]
+				src = src.lower()
 
 			# Check if destination language given as argument, if not set to DEFAULT_LANGUAGE
 			try:
@@ -89,11 +91,13 @@ async def on_message(message):
 			else:
 				emb = discord.Embed(title="Error", description='Invalid Source Language.', color=0x00ff00)
 				await message.reply(embed=emb, mention_author=False)
+				return
 
 			# Check if destination language is invalid, if yes send error
 			if not dst in googletrans.LANGUAGES:
 				emb = discord.Embed(title="Error", description='Invalid Destination Language.', color=0x00ff00)
 				await message.reply(embed=emb, mention_author=False)
+				return
 
 			# Generate translation, log message details, then send message
 			output = tr.translate(text, src=src, dest=dst)
@@ -101,7 +105,7 @@ async def on_message(message):
 				print(src, "|", dst, "|", text, "|", output.text)
 
 			emb = discord.Embed(title="Translated Text", description=output.text, color=0x00ff00)
-			if not srcArg: emb.add_field(name="Source Language", value=srcLang, inline=False)
+			if not srcArg: emb.add_field(name="Source Language", value=src, inline=False)
 			await message.reply(embed=emb, mention_author=False)
 	except discord.errors.Forbidden:
 		if LOGGING:
